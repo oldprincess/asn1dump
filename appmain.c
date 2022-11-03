@@ -55,7 +55,7 @@ static size_t fileread(uint8_t* buf, const char* filename) {
         exit(-1);
     }
     fsize = statbuf.st_size;
-    if (fopen_s(&fp, filename, "rb")) {
+    if (!(fp = fopen(filename, "rb"))) {
         printf("Error in open file `%s`\n", filename);
         exit(-1);
     }

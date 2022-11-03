@@ -29,7 +29,7 @@ void demo(void) {
         exit(-1);
     }
     memset(pem_buf, 0, statbuf.st_size + 1);
-    if (fopen_s(&fp, filename, "rb")) {
+    if (!(fp = fopen(filename, "rb"))) {
         PRINT_ERROR();
         exit(-1);
     }
