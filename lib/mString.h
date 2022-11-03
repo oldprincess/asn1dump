@@ -2,6 +2,7 @@
 #define ASN1DUMP_MSTRING_H
 
 #include <stdint.h>
+#include <sys/types.h> // size_t
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,4 +1,5 @@
 #include "mString.h"
+
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -19,7 +20,7 @@ char* mString_strstr(const char* str, const char* substr) {
 
 char* mString_push_hex(char* hex, uint8_t* data, size_t len) {
     while (len) {
-        hex += sprintf_s(hex, 4, "%02x ", *data);  // never fail
+        hex += sprintf(hex, "%02x ", *data);  // never fail
         data += 1, len -= 1;
     }
     *hex = 0;
@@ -57,7 +58,7 @@ char* mString_push_str(char* dst, const char* s) {
 }
 
 char* mString_push_u32_hex(char* hex, uint32_t n) {
-    hex += sprintf_s(hex, 12, "%d", n);  // never fail
+    hex += sprintf(hex, "%d", n);  // never fail
     *hex = 0;
     return hex;
 }
