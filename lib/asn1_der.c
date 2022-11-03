@@ -37,6 +37,7 @@ static int _ASN1_nodes_num_from_der(size_t* n, uint8_t* in, size_t inl) {
         tag = ASN1_read_tag(&rn, in);
         in += rn, inl -= rn;
         ASN1_assert_goto(!ASN1_read_integer(&length, &rn, in), error);
+        ASN1_assert_goto(inl >= rn, error);
         in += rn, inl -= rn;
         if (tag->tag_value == ASN1_TAG_SEQUENCE ||
             tag->tag_value == ASN1_TAG_SET) {
@@ -45,6 +46,7 @@ static int _ASN1_nodes_num_from_der(size_t* n, uint8_t* in, size_t inl) {
                              error);
             node_num += num;
         }
+        ASN1_assert_goto(inl >= length, error);
         in += length, inl -= length;
         node_num++;
     }
@@ -70,6 +72,7 @@ static int _ASN1_nodes_from_der(ASN1_NODE nodes[], size_t* n, uint8_t* in,
         cur_node->tag = ASN1_read_tag(&rn, in);
         in += rn, inl -= rn;
         ASN1_assert_goto(!ASN1_read_integer(&cur_node->length, &rn, in), error);
+        ASN1_assert_goto(inl >= rn, error);
         in += rn, inl -= rn;
         // read node value
         cur_node->value = in;
@@ -86,6 +89,7 @@ static int _ASN1_nodes_from_der(ASN1_NODE nodes[], size_t* n, uint8_t* in,
             cur_node->child = NULL;
             nxt_node = cur_node + 1;
         }
+        ASN1_assert_goto(inl >= cur_node->length, error);
         in += cur_node->length, inl -= cur_node->length;
         cur_node->total_length = in - cur_node->raw_data;
 
